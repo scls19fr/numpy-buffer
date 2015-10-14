@@ -32,8 +32,7 @@ class MyApplication(QtGui.QApplication):
         self.win.resize(1000, 600)
         self.win.setWindowTitle('Plot with PyQtGraph')
 
-        self.plot = self.win.addPlot(title='Timed data')
-        #self.plot = self.win.addPlot(title='Timed data', axisItems={'bottom': TimeAxisItem(orientation='bottom')})
+        self.plot = self.win.addPlot(title='Timed data', axisItems={'bottom': TimeAxisItem(orientation='bottom')})
         #self.plot.setYRange(0, 150)
 
         #self.curve = self.plot.plot()
@@ -55,8 +54,7 @@ class MyApplication(QtGui.QApplication):
         self.data_x.append(x)
         self.data_y.append(self.y)
 
-        #self.curve.setData(x=self.data_x, y=self.data_y)
-        self.curve.setData(y=self.data_y)
+        self.curve.setData(x=self.data_x, y=self.data_y)
 
 def main():
     # Set PyQtGraph colors

@@ -9,15 +9,6 @@ import pyqtgraph as pg
 from timestamp import now_timestamp, int2dt
 from numpy_buffer import RingBuffer
 
-class TimeAxisItem(pg.AxisItem):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def tickStrings(self, values, scale, spacing):
-        # PySide's QTime() initialiser fails miserably and dismisses args/kwargs
-        #return [QTime().addMSecs(value).toString('mm:ss') for value in values]
-        return [int2dt(value).strftime("%H:%M:%S.%f") for value in values]
-
 class MyApplication(QtGui.QApplication):
     def __init__(self, *args, **kwargs):
         super(MyApplication, self).__init__(*args, **kwargs)
@@ -33,7 +24,6 @@ class MyApplication(QtGui.QApplication):
         self.win.setWindowTitle('Plot with PyQtGraph')
 
         self.plot = self.win.addPlot(title='Timed data')
-        #self.plot = self.win.addPlot(title='Timed data', axisItems={'bottom': TimeAxisItem(orientation='bottom')})
         #self.plot.setYRange(0, 150)
 
         #self.curve = self.plot.plot()
