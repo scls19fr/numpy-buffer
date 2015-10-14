@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
+Some function to manage datetime / timedelta
+as integer (unix timestamp)
+
+Usage:
+
 from timestamp import *
-import datetime
-
-now_timestamp()
-
 """
 
 import datetime
