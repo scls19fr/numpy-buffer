@@ -4,4 +4,4 @@ __license__ = "BSD License"
 __version__ = "0.0.1"
 __email__ = "s.celles@gmail.com"
 __status__ = "Development"
-__url__ = 'https://github.com/scls19fr/numpy_buffer'
+__url__ = 'https://github.com/scls19fr/numpy-buffer'
