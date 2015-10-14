@@ -100,7 +100,7 @@ Run a given test
 
 ::
 
-    $ nosetests tests.test_ring:test_ring -s -v
+    $ nosetests tests/test_ring.py:test_ring -s -v
 
 Install development version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
