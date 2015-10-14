@@ -122,6 +122,7 @@ Collaborating
 -  Create a branch which fix a given issue
 -  Submit pull requests
 
+https://help.github.com/categories/collaborating/
 
 .. |Build Status| image:: https://travis-ci.org/scls19fr/numpy-buffer.svg?branch=master
    :target: https://travis-ci.org/scls19fr/numpy-buffer
