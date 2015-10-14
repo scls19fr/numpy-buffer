@@ -69,5 +69,5 @@ Install
     pip install numpy_buffer
 
 
-.. |Build Status| image:: https://travis-ci.org/scls19fr/numpy_buffer.svg?branch=master
-   :target: https://travis-ci.org/scls19fr/numpy_buffer
+.. |Build Status| image:: https://travis-ci.org/scls19fr/numpy-buffer.svg?branch=master
+   :target: https://travis-ci.org/scls19fr/numpy-buffer
