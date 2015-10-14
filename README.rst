@@ -124,5 +124,13 @@ Collaborating
 
 https://help.github.com/categories/collaborating/
 
+Examples
+^^^^^^^^
+
+see `samples <samples>`_ directory
+
+.. youtube:: MjuWUF0ibYk
+
+
 .. |Build Status| image:: https://travis-ci.org/scls19fr/numpy-buffer.svg?branch=master
    :target: https://travis-ci.org/scls19fr/numpy-buffer
