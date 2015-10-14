@@ -21,23 +21,29 @@ class TimeAxisItem(pg.AxisItem):
 class MyApplication(QtGui.QApplication):
     def __init__(self, *args, **kwargs):
         super(MyApplication, self).__init__(*args, **kwargs)
-        self.t = QTime()
-        self.t.start()
+        #self.t = QTime()
+        #self.t.start()
 
-        maxlen = 300
+        maxlen = 50
         self.data_x = RingBuffer(maxlen)
         self.data_y = RingBuffer(maxlen)
 
         self.win = pg.GraphicsWindow(title="Basic plotting examples")
-        self.win.resize(1000,600)
+        self.win.resize(1000, 600)
+        self.win.setWindowTitle('Plot with PyQtGraph')
 
-        self.plot = self.win.addPlot(title='Timed data', axisItems={'bottom': TimeAxisItem(orientation='bottom')})
+        self.plot = self.win.addPlot(title='Timed data')
+        #self.plot = self.win.addPlot(title='Timed data', axisItems={'bottom': TimeAxisItem(orientation='bottom')})
         #self.plot.setYRange(0, 150)
-        self.curve = self.plot.plot()
 
-        self.tmr = QTimer()
-        self.tmr.timeout.connect(self.update)
-        self.tmr.start(100)
+        #self.curve = self.plot.plot()
+
+        pen = pg.mkPen('r', style=QtCore.Qt.SolidLine)
+        self.curve = self.plot.plot(pen=pen, symbol='+')
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update)
+        self.timer.start(100)
 
         self.y = 100
 
@@ -48,9 +54,18 @@ class MyApplication(QtGui.QApplication):
 
         self.data_x.append(x)
         self.data_y.append(self.y)
-        self.curve.setData(x=self.data_x.partial, y=self.data_y.partial)
+
+        #self.curve.setData(x=self.data_x, y=self.data_y)
+        self.curve.setData(y=self.data_y)
 
 def main():
+    # Set PyQtGraph colors
+    pg.setConfigOption('background', 'w')
+    pg.setConfigOption('foreground', 'k')
+
+    # Enable antialiasing for prettier plots
+    pg.setConfigOptions(antialias=True)
+
     app = MyApplication(sys.argv)
     sys.exit(app.exec_())
 
