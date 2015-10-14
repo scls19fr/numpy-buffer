@@ -57,20 +57,23 @@ class RingBuffer(object):
     @property
     def all(self):
         """return a list of elements from the oldest to the newest (len: size_max)"""
-        return(self._data)
+        return self._data
         
     @property
     def partial(self):
         """return a list of elements from the oldest to the newest (len: size)"""
-        return(self.all[0:self.size])
+        return self.all[0:self.size]
+
+    def view(self, *args, **kwargs):
+        return self.partial[::-1].view(*args, **kwargs)
     
     def __len__(self):
         """return size (not size_max)"""
-        return(self.size)
+        return self.size
 
     def __getitem__(self, key):
         """get element"""
-        return(self._data[key])
+        return self._data[key]
 
     def __repr__(self):
         """return string representation"""
@@ -83,7 +86,7 @@ class RingBuffer(object):
     self.partial.__repr__(),
     self.size, self.size_max
 )
-        return(s)
+        return s
 
     def overflow(self, *args, **kwargs):
         return
