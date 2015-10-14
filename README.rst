@@ -5,6 +5,13 @@ Numpy Buffer
 
 A `Python <https://www.python.org/>`_ `NumPy <http://www.numpy.org/>`_ implementation of buffer.
 
+Install
+-------
+
+.. code:: bash
+
+    $ pip install numpy-buffer
+
 Ring Buffer
 -----------
 
@@ -61,12 +68,59 @@ Usage
     In [11]: ring.partial[::-1]
     Out[11]: array([ 1.2,  2.1])
 
-Install
--------
+Development
+-----------
 
-.. code:: bash
+You can help to develop this library.
 
-    pip install numpy_buffer
+Issues
+~~~~~~
+
+You can submit issues using https://github.com/scls19fr/numpy-buffer/issues
+
+Clone
+~~~~~
+
+You can clone repository to try to fix issues yourself using:
+
+::
+
+    $ git clone https://github.com/scls19fr/numpy-buffer.git
+
+Run unit tests
+~~~~~~~~~~~~~~
+
+Run all unit tests
+
+::
+
+    $ nosetests -s -v
+
+Run a given test
+
+::
+
+    $ nosetests tests.test_ring:test_ring -s -v
+
+Install development version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    $ python setup.py install
+
+or
+
+::
+
+    $ sudo pip install git+https://github.com/scls19fr/numpy-buffer.git
+
+Collaborating
+~~~~~~~~~~~~~
+
+-  Fork repository
+-  Create a branch which fix a given issue
+-  Submit pull requests
 
 
 .. |Build Status| image:: https://travis-ci.org/scls19fr/numpy-buffer.svg?branch=master
