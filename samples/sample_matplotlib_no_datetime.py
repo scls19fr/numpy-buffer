@@ -6,7 +6,7 @@ from numpy_buffer import RingBuffer
 
 def main():
     maxlen = 50
-    data_x = RingBuffer(maxlen)
+    #data_x = RingBuffer(maxlen)
     data_y = RingBuffer(maxlen)
 
     y = 100 # initial value
