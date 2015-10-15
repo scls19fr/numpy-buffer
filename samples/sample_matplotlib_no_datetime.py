@@ -16,13 +16,11 @@ def main():
     delta_y = 20
     ax.set_ylim([y - delta_y, y + delta_y])
 
-    num_plots = 0
     while True:
         y = y + np.random.uniform(-1, 1)
         data_y.append(y)
         line.set_ydata(data_y.all[::-1])
         plt.pause(0.001)
-        num_plots += 1
 
 if __name__ == '__main__':
     main()
