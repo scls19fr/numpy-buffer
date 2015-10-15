@@ -90,3 +90,17 @@ class RingBuffer(object):
 
     def overflow(self, *args, **kwargs):
         return
+
+    def min(self, all=False):
+        """return min"""
+        if all:
+            return self.all.min()
+        else:
+            return self.partial.min()
+
+    def max(self, all=True):
+        """return max"""
+        if all:
+            return self.all.max()
+        else:
+            return self.partial.max()

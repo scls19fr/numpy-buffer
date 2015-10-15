@@ -19,3 +19,14 @@ def test_ring():
 
     assert isinstance(ring.all, np.ndarray)
     assert isinstance(ring.partial, np.ndarray)
+
+def test_min_max():
+    N = 5
+    ring = RingBuffer(size_max=N, default_value=-1)
+    ring.append(2)
+    ring.append(1)
+    ring.append(4)
+    ring.append(3)
+    assert ring.min() == 1
+    assert ring.min(all=True) == -1
+    assert ring.max() == 4
