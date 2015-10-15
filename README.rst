@@ -129,7 +129,8 @@ Examples
 
 see `samples <samples>`_ directory
 
-.. youtube:: MjuWUF0ibYk
+.. image:: http://img.youtube.com/vi/MjuWUF0ibYk/0.jpg
+   :target: https://www.youtube.com/watch?v=MjuWUF0ibYk
 
 
 .. |Build Status| image:: https://travis-ci.org/scls19fr/numpy-buffer.svg?branch=master
