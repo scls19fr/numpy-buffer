@@ -38,7 +38,8 @@ def main():
                 'y': y
             }
         }
-        cli.publish(topic='/sensors/sensor01', payload=json.dumps(data), qos=0, retain=False)
+        payload = json.dumps(data) # serialization
+        cli.publish(topic='/sensors/sensor01', payload=payload, qos=0, retain=False)
         #time.sleep(1)
         #print("wait")
 
