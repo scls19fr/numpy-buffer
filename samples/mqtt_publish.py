@@ -3,7 +3,8 @@
 import mosquitto
 from mqtt_settings import config
 import time
-from timestamp import now_timestamp
+import datetime
+import pytz
 import numpy as np
 import json
 
@@ -30,11 +31,11 @@ def main():
     y = 100 # initial value
 
     while cli.loop() == 0:
-        now = now_timestamp()
+        now = datetime.datetime.now(pytz.utc)
         y = y + np.random.uniform(-1, 1)
         data = {
-            'now': now,
-            'data': {
+            'ts': now.isoformat(),
+            'd': {
                 'y': y
             }
         }

@@ -5,13 +5,14 @@ import json
 from mqtt_settings import config
 from numpy_buffer import RingBuffer
 import datetime
-from timestamp import int2dt
+import pytz
+import dateutil.parser
 
 def on_message(mosq, obj, msg):
     data = json.loads(msg.payload.decode("utf-8")) # deserialization
-    sent = int2dt(data['now']) # unix timestamp to datetime.datetime
-    data['now'] = sent
-    received = datetime.datetime.utcnow()
+    sent = dateutil.parser.parse(data['ts']) # iso 8601 to datetime.datetime
+    data['ts'] = sent
+    received = datetime.datetime.now(pytz.utc)
     lag = received - sent
     print("%-20s %d %s lag=%s" % (msg.topic, msg.qos, data, lag))
     #mosq.publish('pong', "Thanks", 0)

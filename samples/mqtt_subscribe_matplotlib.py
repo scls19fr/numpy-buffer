@@ -6,10 +6,14 @@ import json
 from mqtt_settings import config
 from numpy_buffer import RingBuffer
 import datetime
-from timestamp import int2dt
+import pytz
+import dateutil.parser
+
+def now():
+    return datetime.datetime.now(pytz.utc)
 
 maxlen = 500
-data_x = RingBuffer(maxlen, datetime.datetime.utcnow(), dtype=datetime.datetime)
+data_x = RingBuffer(maxlen, now(), dtype=datetime.datetime)
 data_y = RingBuffer(maxlen)
 
 fig, ax = plt.subplots()
@@ -18,15 +22,15 @@ ax.set_ylim([0, 100])
 
 def on_message(mosq, obj, msg):
     data = json.loads(msg.payload.decode("utf-8")) # deserialization
-    sent = int2dt(data['now']) # unix timestamp to datetime.datetime
-    data['now'] = sent
-    received = datetime.datetime.utcnow()
+    sent = dateutil.parser.parse(data['ts']) # iso 8601 to datetime.datetime
+    data['ts'] = sent
+    received = now()
     lag = received - sent
     print("%-20s %d %s lag=%s" % (msg.topic, msg.qos, data, lag))
     #mosq.publish('pong', "Thanks", 0)
 
     data_x.append(sent)
-    data_y.append(data['data']['y'])
+    data_y.append(data['d']['y'])
     line.set_xdata(data_x.all[::-1])
     xmin, xmax = data_x.min(), data_x.max()
     if xmax > xmin:
