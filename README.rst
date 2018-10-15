@@ -10,7 +10,7 @@ Install
 
 .. code:: bash
 
-    $ pip install numpy-buffer
+    $ pip install git+https://github.com/scls19fr/numpy-buffer/
 
 Ring Buffer
 -----------
@@ -85,7 +85,7 @@ You can clone repository to try to fix issues yourself using:
 
 ::
 
-    $ git clone https://github.com/scls19fr/numpy-buffer.git
+    $ git clone https://github.com/scls19fr/numpy-buffer
 
 Run unit tests
 ^^^^^^^^^^^^^^
@@ -113,7 +113,7 @@ or
 
 ::
 
-    $ sudo pip install git+https://github.com/scls19fr/numpy-buffer.git
+    $ sudo pip install git+https://github.com/scls19fr/numpy-buffer
 
 Collaborating
 ^^^^^^^^^^^^^
