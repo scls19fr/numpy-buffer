@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import mosquitto
+import paho.mqtt.client as mqtt
 import json
 from mqtt_settings import config
 import datetime
@@ -8,7 +8,12 @@ import pytz
 import dateutil.parser
 
 
-def on_message(mosq, obj, msg):
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+    client.subscribe("/sensors/#", 0)
+
+
+def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode("utf-8"))  # deserialization
     sent = dateutil.parser.parse(data['ts'])  # iso 8601 to datetime.datetime
     data['ts'] = sent
@@ -18,12 +23,13 @@ def on_message(mosq, obj, msg):
     # mosq.publish('pong', "Thanks", 0)
 
 
-def on_publish(mosq, obj, mid):
+def on_publish(client, userdata, msg):
     pass
 
 
 def main():
-    cli = mosquitto.Mosquitto()
+    cli = mqtt.Client()
+    cli.on_connect = on_connect
     cli.on_message = on_message
     cli.on_publish = on_publish
 
@@ -34,10 +40,8 @@ def main():
     # cli.username_pw_set("guigui", password="abloc")
 
     cli.connect(config['host'], config['port'], config['keepalive'])
-    cli.subscribe("/sensors/#", 0)
 
-    while cli.loop() == 0:
-        pass
+    cli.loop_forever()
 
 
 if __name__ == '__main__':
