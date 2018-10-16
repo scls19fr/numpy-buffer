@@ -9,7 +9,7 @@ import json
 
 
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code %s" %str(rc))
+    print("Connected with result code " + str(rc))
 
 
 def on_message(client, userdata, msg):
