@@ -6,9 +6,15 @@ python:
   - "3.5"
   - "3.6"
 
+before_install:
+  - pip install flake8
+
 # command to install dependencies
 install:
   - "pip install ."
 
 # command to run tests
-script: nosetests
+script:
+  - flake8 --version
+  - flake8 numpy_buffer samples test
+  - nosetests
