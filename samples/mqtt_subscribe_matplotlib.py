@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import matplotlib.pyplot as plt
-import mosquitto
+import paho.mqtt.client as mqtt
 import json
 from mqtt_settings import config
 from numpy_buffer import RingBuffer
@@ -23,7 +23,12 @@ line, = ax.plot(data_x.all[::-1], data_y.all[::-1], linestyle='-', marker='+', c
 ax.set_ylim([0, 100])
 
 
-def on_message(mosq, obj, msg):
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+    client.subscibe("/sensors/#", 0)
+
+
+def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode("utf-8"))  # deserialization
     sent = dateutil.parser.parse(data['ts'])  # iso 8601 to datetime.datetime
     data['ts'] = sent
@@ -45,12 +50,13 @@ def on_message(mosq, obj, msg):
     plt.pause(0.001)
 
 
-def on_publish(mosq, obj, mid):
+def on_publish(client, userdata, msg):
     pass
 
 
 def main():
-    cli = mosquitto.Mosquitto()
+    cli = mqtt.Client()
+    cli.on_connect = on_connect
     cli.on_message = on_message
     cli.on_publish = on_publish
 
@@ -61,10 +67,8 @@ def main():
     # cli.username_pw_set("guigui", password="abloc")
 
     cli.connect(config['host'], config['port'], config['keepalive'])
-    cli.subscribe("/sensors/#", 0)
 
-    while cli.loop() == 0:
-        pass
+    cli.loop_forever()
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import mosquitto
+import paho.mqtt.client as mqtt
 from mqtt_settings import config
 import datetime
 import pytz
@@ -8,17 +8,22 @@ import numpy as np
 import json
 
 
-def on_message(mosq, obj, msg):
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+
+
+def on_message(client, userdata, msg):
     print("%-20s %d %s" % (msg.topic, msg.qos, msg.payload))
-    mosq.publish('pong', "Thanks", 0)
+    client.publish('pong', "Thanks", 0)
 
 
-def on_publish(mosq, obj, mid):
-    print("publish %s %s %s" % (mosq, obj, mid))
+def on_publish(client, userdata, msg):
+    print("publish %s %s %s" % (client, userdata, msg))
 
 
 def main():
-    cli = mosquitto.Mosquitto()
+    cli = mqtt.Client()
+    cli.on_connect = on_connect
     cli.on_message = on_message
     cli.on_publish = on_publish
 
