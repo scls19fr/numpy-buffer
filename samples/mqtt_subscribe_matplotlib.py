@@ -1,5 +1,5 @@
 #!/usr/bin/env python
- 
+
 import matplotlib.pyplot as plt
 import mosquitto
 import json
@@ -9,8 +9,10 @@ import datetime
 import pytz
 import dateutil.parser
 
+
 def now():
     return datetime.datetime.now(pytz.utc)
+
 
 maxlen = 500
 data_x = RingBuffer(maxlen, now(), dtype=datetime.datetime)
@@ -20,14 +22,15 @@ fig, ax = plt.subplots()
 line, = ax.plot(data_x.all[::-1], data_y.all[::-1], linestyle='-', marker='+', color='r', markeredgecolor='b')
 ax.set_ylim([0, 100])
 
+
 def on_message(mosq, obj, msg):
-    data = json.loads(msg.payload.decode("utf-8")) # deserialization
-    sent = dateutil.parser.parse(data['ts']) # iso 8601 to datetime.datetime
+    data = json.loads(msg.payload.decode("utf-8"))  # deserialization
+    sent = dateutil.parser.parse(data['ts'])  # iso 8601 to datetime.datetime
     data['ts'] = sent
     received = now()
     lag = received - sent
     print("%-20s %d %s lag=%s" % (msg.topic, msg.qos, data, lag))
-    #mosq.publish('pong', "Thanks", 0)
+    # mosq.publish('pong', "Thanks", 0)
 
     data_x.append(sent)
     data_y.append(data['d']['y'])
@@ -40,26 +43,29 @@ def on_message(mosq, obj, msg):
     if ymax > ymin:
         ax.set_ylim([ymin, ymax])
     plt.pause(0.001)
- 
+
+
 def on_publish(mosq, obj, mid):
     pass
+
 
 def main():
     cli = mosquitto.Mosquitto()
     cli.on_message = on_message
     cli.on_publish = on_publish
 
-    #cli.tls_set('root.ca',
-    #certfile='c1.crt',
-    #keyfile='c1.key')
+    # cli.tls_set('root.ca',
+    # certfile='c1.crt',
+    # keyfile='c1.key')
 
-    #cli.username_pw_set("guigui", password="abloc")
+    # cli.username_pw_set("guigui", password="abloc")
 
     cli.connect(config['host'], config['port'], config['keepalive'])
     cli.subscribe("/sensors/#", 0)
- 
+
     while cli.loop() == 0:
         pass
+
 
 if __name__ == '__main__':
     main()
