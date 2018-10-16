@@ -4,12 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy_buffer import RingBuffer
 
+
 def main():
     maxlen = 50
-    #data_x = RingBuffer(maxlen)
+    # data_x = RingBuffer(maxlen)
     data_y = RingBuffer(maxlen)
 
-    y = 100 # initial value
+    y = 100  # initial value
 
     fig, ax = plt.subplots()
     line, = ax.plot(data_y.all[::-1])
@@ -21,6 +22,7 @@ def main():
         data_y.append(y)
         line.set_ydata(data_y.all[::-1])
         plt.pause(0.001)
+
 
 if __name__ == '__main__':
     main()

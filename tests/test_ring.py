@@ -3,11 +3,13 @@
 from numpy_buffer import RingBuffer
 import numpy as np
 
+
 def test_ring():
     N = 10
+
     def print_overflow(*args, **kwargs):
         print("OVERFLOW of %s" % args[0])
-        #raise NotImplementedError
+        # raise NotImplementedError
     ring = RingBuffer(size_max=N, default_value=0.0, dtype=float, overflow=print_overflow)
     for i in range(1, N + 5):
         ring.append(i)
@@ -19,6 +21,7 @@ def test_ring():
 
     assert isinstance(ring.all, np.ndarray)
     assert isinstance(ring.partial, np.ndarray)
+
 
 def test_min_max():
     N = 5

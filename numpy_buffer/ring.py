@@ -2,6 +2,7 @@
 
 import numpy as np
 
+
 class RingBuffer(object):
     def __init__(self, size_max, default_value=0.0, dtype=float, overflow=None):
         """initialization"""
@@ -28,23 +29,23 @@ class RingBuffer(object):
             if len(default_value) == size_max:
                 self._data = default_value
             else:
-                raise(NotImplementedError("len(default_value)=%d but size_max=%d",
-                    " but they should be equal" % (len(default_value), size_max)))
+                msg = "len(default_value)=%d but size_max=%d, but they should be equal" % (len(default_value), size_max)
+                raise NotImplementedError(msg)
 
         self.size = 0
-        
+
         self.full = False
-        self.append = self._append_not_full        
+        self.append = self._append_not_full
 
     def _append_not_full(self, value):
         """append an element"""
         self._data = np.roll(self._data, 1)
-        self._data[0] = value 
+        self._data[0] = value
 
         self.size += 1
-                
+
         if self.size == self.size_max:
-            self.full  = True
+            self.full = True
             self.append = self._append_full
             self.overflow = self.overflow(self)
 
@@ -53,12 +54,11 @@ class RingBuffer(object):
         self._data = np.roll(self._data, 1)
         self._data[0] = value
 
-
     @property
     def all(self):
         """return a list of elements from the oldest to the newest (len: size_max)"""
         return self._data
-        
+
     @property
     def partial(self):
         """return a list of elements from the oldest to the newest (len: size)"""
@@ -66,7 +66,7 @@ class RingBuffer(object):
 
     def view(self, *args, **kwargs):
         return self.partial[::-1].view(*args, **kwargs)
-    
+
     def __len__(self):
         """return size (not size_max)"""
         return self.size
@@ -81,11 +81,10 @@ class RingBuffer(object):
     all:     %s
     partial: %s
     size/size_max: %d / %d
->""" % (self.__class__.__name__, 
-    self.all.__repr__(), 
-    self.partial.__repr__(),
-    self.size, self.size_max
-)
+>""" % (self.__class__.__name__,
+            self.all.__repr__(),
+            self.partial.__repr__(),
+            self.size, self.size_max)
         return s
 
     def overflow(self, *args, **kwargs):

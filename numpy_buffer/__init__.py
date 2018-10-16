@@ -1,3 +1,3 @@
 #!/usr/bin/env python
 
-from .ring import RingBuffer
+from .ring import RingBuffer  # noqa

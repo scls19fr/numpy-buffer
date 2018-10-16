@@ -5,12 +5,13 @@ import numpy as np
 import datetime
 from numpy_buffer import RingBuffer
 
+
 def main():
     maxlen = 500
     data_x = RingBuffer(maxlen, datetime.datetime.utcnow(), dtype=datetime.datetime)
     data_y = RingBuffer(maxlen)
 
-    y = 100 # initial value
+    y = 100  # initial value
 
     fig, ax = plt.subplots()
     line, = ax.plot(data_x.all[::-1], data_y.all[::-1], linestyle='-', marker='+', color='r', markeredgecolor='b')
@@ -31,6 +32,7 @@ def main():
         if ymax > ymin:
             ax.set_ylim([ymin, ymax])
         plt.pause(0.001)
+
 
 if __name__ == '__main__':
     main()

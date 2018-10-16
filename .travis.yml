@@ -16,5 +16,5 @@ install:
 # command to run tests
 script:
   - flake8 --version
-  - flake8 numpy_buffer samples test
+  - flake8 --ignore E501 numpy_buffer samples test
   - nosetests
