@@ -133,5 +133,5 @@ see `samples <samples>`_ directory
    :target: https://www.youtube.com/watch?v=MjuWUF0ibYk
 
 
-.. |Build Status| image:: https://travis-ci.org/scls19fr/numpy-buffer.svg?branch=master
-   :target: https://travis-ci.org/scls19fr/numpy-buffer
+.. |Build Status| image:: https://travis-ci.com/scls19fr/numpy-buffer.svg?branch=master
+   :target: https://travis-ci.com/scls19fr/numpy-buffer
